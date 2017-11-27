@@ -1,0 +1,103 @@
+public class Tile {
+    final int xPos,yPos;
+    private String type;
+    List<Entity> entities = new ArrayList<>();
+    public Tile(int xPosition, int yPosition) {
+        xPos = xPosition;
+        yPos = yPosition;
+    }
+
+    public void setType(String type){
+        this.type = type;
+    }
+    public String getType() {
+        return type;
+    }
+    public void addEntity(Entity e){
+        entities.add(e);
+    }
+    public void removeEntity(Entity e){
+        entities.remove(e);
+    }
+}
+
+public class World {
+    Tile[][] coordinates;
+    List<Tile> tiles = new ArrayList<>();
+
+    // Creates an instance of a map with a user-defined size
+    public World(int width, int height) {
+        coordinates = new Tile[width][height];
+        for(int i = 0; i<width; i++){
+            for(int j = 0; j<height; j++){
+                coordinates[i][j] = new Tile(i,j);
+                tiles.add(coordinates[i][j]);
+            }
+        }
+    }
+
+    public void addEntity(Entity e){
+        int x = e.getX();
+        int y = e.getY();
+        coordinates[x][y].addEntity(e);
+    }
+    public void setTileType(int x, int y, String type){
+        coordinates[x][y].setType(type);
+    }
+    public List<Tile> getTiles(){
+        return new List<>(tiles);
+    }
+
+    public List<Entity> getEntities(){
+       List<Entity> entities = new ArrayList<>();
+       for(Tile[] row: coordinates){
+           for(Tile tile: row){
+               entities.addAll(tile.entities);
+           }
+       }
+    }
+}
+
+ublic static void main(String[] args) {
+    // Creators
+    World worldMap = new World(mapWidth, mapHeight);
+    Character john = new Character("John", 0, 0);
+    Character mary = new Character("Mary", 1, 4);
+    worldMap.add(john);
+    worldMap.add(mary);
+
+    for (int x = 0; x < mapWidth; x++) {
+        worldMap.setTileType(x, 5, "forest");
+    }
+
+    // Printing out info about character(s)
+    //I think the world map should  have a list of characters.
+
+    for (Character character : charList) {
+        System.out.print(character+": " + character.getName() + "\n");
+    }
+    System.out.print("\n"+charList.size() + " characters in play\n\n");
+    List<Tile> tileList = worldMap.getTiles();
+    // Printing out info about tile(s)
+    for (Tile tile : tileList) {
+        System.out.print(tile + " type: " + tile.getType() + "\n");
+    }
+    System.out.print("\n"+tileList.size() + " tiles in play");
+}
+
+
+Character john = new Character("john", x, y);
+The reason there are two #addEntity()s is because of how I think to answer the following predicament.
+
+"I want to create a character john and add them to the world at position x,y."
+
+Of course we will have
+
+Character john = new Character("john", x, y);
+Then, how do we john to the World? I say, we just add him to the world, and let the world know what to do with the tiles and such.
+
+world.addEntity(john);
+John has a position, and the world can find the tile, and place john on the tile. The converse, which is more similar to what you have tried, would be to find the tile and add john directly.
+
+world.coordinates[john.getX()][john.getY()].addEntity(john);
+As you have shown in your example, this has some issues with index out of bounds exceptions, which you should handle. So the problem is, you need to know a lot about the structure of the tiles to add an Entity. Insteady let the world at the entity, because then it can handle all of the caveats one time and place the Entity at the correct tile.
