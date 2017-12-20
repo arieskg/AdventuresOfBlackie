@@ -12,10 +12,8 @@ public class Game {
 
         String[] firstScenario = Choice.choiceOne.getChoiceList();
         for (int i = 0; i < firstScenario.length; i++){
-
             System.out.println((i + 1) + " - " + firstScenario[i]);
         }
-
 
         Scanner reader = new Scanner(System.in);                    // Read from System.in
         System.out.println("Choose an action: ");

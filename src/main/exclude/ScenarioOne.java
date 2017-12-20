@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class FirstScenario {
+public class ScenarioOne {
     static String[] firstScenario = new String[] {"Meow"
                                             ,"Jump on bed"
                                             ,"Poop on bed"
@@ -24,22 +24,22 @@ public class FirstScenario {
         int meowCounter = 0;
         int levelCounter = 0;
         while (levelCounter != 1) {
-            Scanner reader = new Scanner(System.in);                    // Read from System.in
+            Scanner reader = new Scanner(System.in);                          // Read from input from user
             System.out.println("Choose an action: ");
-            int userChoice = reader.nextInt();                          // Scans the next token of the input as an int.
+            int userChoice = reader.nextInt();                               // Scans the next token of the input as an int.
             if (userChoice == 1) {
                 System.out.println("Meow!");
                 meowCounter++;
             }
-            if (userChoice == 2) {
+            if (userChoice == 2) {                                                     // If user chooses 2, loops back to menu
                 System.out.println("小黑烦死了！Jing goes back to sleep");
             }
             if (userChoice == 3) {
-                System.out.println("卧槽！好你竟敢在床上大便！这两个星期别想吃tuna了！");
-                System.out.println("Variables over!");
+                System.out.println("卧槽！好你竟敢在床上大便！这两个星期别想吃tuna了！");     // If user chooses 3, game is over
+                System.out.println("Game over!");
                 break;
             }
-            if (userChoice == 4) {
+            if (userChoice == 4) {                                        // If user chooses 4, next level begins
                 if (meowCounter > 5) {
                     levelCounter += 1;
                     System.out.println("Jing's awake, opens door,");
@@ -49,7 +49,7 @@ public class FirstScenario {
 
             }
         }
-            for (int i = 0; i < secondScenario.length; i++){              // Print second scenarios
+            for (int i = 0; i < secondScenario.length; i++){                // Print second scenarios
             System.out.println((i+1)+". " + secondScenario[i]);
         }
             while (levelCounter < 2) {

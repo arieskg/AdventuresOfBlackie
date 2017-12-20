@@ -27,23 +27,28 @@ public class Choice {
 
     public static String userChoice(int userInput) {
         int gameLevel = 0;
+        while (gameLevel != 1) {
             if (userInput == 1) {
                 String message = Message.meow.getMsgText();
                 meowCounter++;
                 System.out.println(message);
+                continue;
             }
             if (userInput == 2) {
                 String message = Message.jingAnnoy.getMsgText();
                 System.out.println(message);
+                continue;
             }
             if (userInput == 3) {
                 String message = Message.jingPunish.getMsgText();
                 String gameOver = "Game Over!";
                 System.out.println(message);
+                break;
             }
             if (userInput == 4) {
                 gameLevel++;
             }
+        }
         return null;
     }
 
